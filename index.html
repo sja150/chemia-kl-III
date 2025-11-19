@@ -3,49 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mleko: Superfood i Chemia</title>
+    <title>Chemia Mleka i Procesy Biologiczne</title>
     <style>
         :root {
-            --primary: #3b82f6;
-            --bg: #f0f9ff;
+            --primary: #2563eb;
+            --secondary: #475569;
+            --bg: #f1f5f9;
             --card-bg: #ffffff;
-            --text: #1e293b;
+            --text: #0f172a;
+            --accent: #d97706;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         header {
-            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
             color: white;
-            padding: 2rem 1rem;
+            padding: 3rem 1rem;
             text-align: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        h1 { margin: 0; font-size: 2.5rem; }
-        h2 { color: var(--primary); border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; }
-        
+        h1 { margin: 0; font-size: 2.8rem; font-weight: 700; }
+        h2 { color: var(--primary); border-left: 5px solid var(--accent); padding-left: 1rem; margin-top: 2.5rem; }
+        h3 { color: var(--secondary); margin-top: 0; }
+
         .container {
-            max-width: 900px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+            max-width: 1000px;
+            margin: -2rem auto 2rem; /* Negative margin to overlap header */
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 10;
         }
 
-        /* Sekcja Eksperymentu */
+        /* --- SEKCJA LABORATORYJNA (Bez zmian - bo jest efektowna) --- */
         .lab-section {
             background: var(--card-bg);
             border-radius: 1rem;
             padding: 2rem;
             text-align: center;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
-            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
         }
 
         .beaker-container {
@@ -61,9 +65,9 @@
             height: 140px;
             border: 4px solid #334155;
             border-top: none;
-            border-radius: 0 0 10px 10px;
+            border-radius: 0 0 15px 15px;
             position: relative;
-            background: white; /* Puste naczynie */
+            background: white;
             overflow: hidden;
         }
 
@@ -72,160 +76,215 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 70%;
-            background-color: #f8fafc; /* Kolor mleka */
-            transition: all 1s ease;
+            height: 65%;
+            background-color: #f8fafc;
+            transition: all 1.5s ease;
         }
 
-        .reaction-box {
+        .reaction-display {
             background: #1e293b;
-            color: #bef264;
+            color: #84cc16;
             font-family: 'Courier New', monospace;
-            padding: 1rem;
+            padding: 1.5rem;
             border-radius: 0.5rem;
-            margin-top: 1rem;
-            display: none; /* Ukryte na początku */
+            margin-top: 1.5rem;
+            display: none;
+            text-align: left;
+            border-left: 5px solid #84cc16;
         }
 
         button {
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 0.75rem 1.5rem;
+            padding: 1rem 2rem;
             font-size: 1.1rem;
+            font-weight: bold;
             border-radius: 0.5rem;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: transform 0.2s, background 0.3s;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
         }
-        button:hover { background-color: #1d4ed8; }
+        button:hover { background-color: #1d4ed8; transform: translateY(-2px); }
 
-        /* Sekcja Teorii (Grid) */
-        .theory-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
+        /* --- NOWA SEKCJA TEORII --- */
+        .theory-block {
+            background: var(--card-bg);
+            padding: 2rem;
             margin-bottom: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
-        .card {
-            background: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-        }
-
-        .formula {
-            font-weight: bold;
-            color: #d97706;
-            display: block;
-            margin-top: 0.5rem;
-        }
-
-        /* Accordion dla pytań */
-        .qa-section details {
-            background: var(--card-bg);
-            margin-bottom: 0.5rem;
-            border-radius: 0.5rem;
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .qa-section summary {
+        .definition-box {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
             padding: 1rem;
-            cursor: pointer;
-            font-weight: bold;
-            background-color: #f8fafc;
-            list-style: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            font-size: 0.95rem;
         }
-        
-        .qa-section summary::after { content: '+'; font-size: 1.5rem; color: var(--primary); }
-        .qa-section details[open] summary::after { content: '-'; }
 
-        .qa-section p { padding: 1rem; margin: 0; border-top: 1px solid #e2e8f0; }
+        .bond-highlight {
+            color: #dc2626; /* Czerwony dla wiązań */
+            font-weight: bold;
+        }
 
-        .highlight { background-color: #fef08a; padding: 0 4px; }
+        .chem-formula {
+            font-family: 'Georgia', serif;
+            background: #f8fafc;
+            padding: 0.5rem 1rem;
+            border-radius: 0.3rem;
+            border: 1px solid #e2e8f0;
+            display: inline-block;
+            margin: 0.5rem 0;
+            color: #334155;
+            font-weight: bold;
+        }
+
+        ul.chem-list {
+            padding-left: 1.5rem;
+        }
+        ul.chem-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        .comparison-table th, .comparison-table td {
+            border: 1px solid #cbd5e1;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        .comparison-table th {
+            background-color: #f1f5f9;
+            color: var(--primary);
+        }
+
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Mleko: Projekt Egzaminacyjny</h1>
-    <p>Analiza chemiczna, procesy i znaczenie biologiczne</p>
+    <h1>Projekt: Chemia Mleka</h1>
+    <p>Analiza składników, procesy fermentacji i właściwości wody</p>
 </header>
 
 <div class="container">
 
     <section class="lab-section">
-        <h2>Laboratorium: Fermentacja Mlekowa</h2>
-        <p>Kliknij przycisk poniżej, aby dodać bakterie <em>Lactobacillus</em> i rozpocząć proces.</p>
+        <h2>Symulacja: Fermentacja Mlekowa</h2>
+        <p>Przeprowadź wirtualną reakcję, aby zobaczyć zmianę właściwości fizykochemicznych mleka.</p>
         
         <div class="beaker-container">
             <div class="beaker">
                 <div class="liquid" id="milkLiquid"></div>
-                <div style="position: absolute; width: 100%; text-align: center; bottom: 30%; font-weight: bold; opacity: 0.5;" id="liquidLabel">MLEKO</div>
+                <div style="position: absolute; width: 100%; text-align: center; bottom: 25%; font-weight: bold; opacity: 0.6;" id="liquidLabel">LAKTOZA</div>
             </div>
         </div>
 
-        <button onclick="startFermentation()">Dodaj bakterie i przeprowadź reakcję</button>
+        <button onclick="startFermentation()">Inicjuj Fermentację</button>
 
-        <div class="reaction-box" id="reactionDisplay">
+        <div class="reaction-display" id="reactionOutput">
             </div>
-        <p id="process-desc" style="margin-top: 1rem; font-style: italic; color: #64748b;"></p>
     </section>
 
-    <h2>1. Budowa Chemiczna Składników</h2>
-    <div class="theory-grid">
-        <div class="card">
-            <h3>Białka (Kazeina)</h3>
-            <p>Wielkocząsteczkowe związki zbudowane z aminokwasów.</p>
-            <span class="formula">Wiązanie: PEPTYDOWE</span>
-            <p>Funkcja: Budulec mięśni, enzymy, odporność.</p>
+    <h2>1. Chemia Składników Odżywczych: Budowa i Wiązania</h2>
+    
+    <div class="theory-block">
+        <h3>Białka (Polipeptydy)</h3>
+        <p>Białka to biopolimery zbudowane z reszt aminokwasowych. W mleku głównym białkiem jest <strong>kazeina</strong>.</p>
+        <div class="definition-box">
+            <strong>Wiązanie Peptydowe (–CONH–)</strong><br>
+            Jest to wiązanie amidowe powstające w reakcji kondensacji między <strong>grupą karboksylową (–COOH)</strong> jednego aminokwasu a <strong>grupą aminową (–NH<sub>2</sub>)</strong> drugiego aminokwasu, z wydzieleniem cząsteczki wody.
         </div>
-        <div class="card">
-            <h3>Cukry (Laktoza)</h3>
-            <p>Disacharyd (Galaktoza + Glukoza). Klasyfikacja: Węglowodany złożone.</p>
-            <span class="formula">Wiązanie: O-GLIKOZYDOWE</span>
-            <p>Funkcja: Główne źródło energii.</p>
+        <p>Reakcja powstawania:<br>
+        <span class="chem-formula">R<sub>1</sub>–COOH + H<sub>2</sub>N–R<sub>2</sub> → R<sub>1</sub>–<span class="bond-highlight">CO–NH</span>–R<sub>2</sub> + H<sub>2</sub>O</span>
+        </p>
+        <p>Białka pełnią funkcję budulcową (mięśnie) oraz katalityczną (enzymy).</p>
+    </div>
+
+    <div class="theory-block">
+        <h3>Tłuszcze (Lipidy)</h3>
+        <p>Tłuszcze proste to estry glicerolu (alkoholu trihydroksylowego) i wyższych kwasów tłuszczowych.</p>
+        <div class="definition-box">
+            <strong>Wiązanie Estrowe (–COO–)</strong><br>
+            Powstaje w reakcji estryfikacji, gdy grupa hydroksylowa glicerolu reaguje z grupą karboksylową kwasu tłuszczowego.
         </div>
-        <div class="card">
-            <h3>Tłuszcze</h3>
-            <p>Estry glicerolu i kwasów tłuszczowych.</p>
-            <span class="formula">Wiązanie: ESTROWE</span>
-            <p>Funkcja: Magazyn energii, izolacja termiczna.</p>
+        <p>Wzór ogólny tłuszczu:<br>
+        <span class="chem-formula">(R–<span class="bond-highlight">COO</span>)<sub>3</sub>C<sub>3</sub>H<sub>5</sub></span>
+        </p>
+        <p>W organizmie pełnią funkcję zapasową (magazyn energii) oraz termoizolacyjną.</p>
+    </div>
+
+    <div class="theory-block">
+        <h3>Klasyfikacja Cukrów (Węglowodanów)</h3>
+        <p>Cukry dzielimy ze względu na wielkość cząsteczki i zdolność do hydrolizy.</p>
+        
+        <table class="comparison-table">
+            <tr>
+                <th>Rodzaj</th>
+                <th>Charakterystyka</th>
+                <th>Przykłady i Wiązania</th>
+            </tr>
+            <tr>
+                <td><strong>Monosacharydy</strong><br>(Cukry proste)</td>
+                <td>Nie ulegają hydrolizie. Są podstawową jednostką budulcową. Dobrze rozpuszczalne w wodzie.</td>
+                <td>Glukoza, Galaktoza, Fruktoza.<br><em>Brak wiązań glikozydowych.</em></td>
+            </tr>
+            <tr>
+                <td><strong>Disacharydy</strong><br>(Dwucukry)</td>
+                <td>Zbudowane z dwóch cząsteczek monosacharydów połączonych wiązaniem.</td>
+                <td><strong>Laktoza</strong> (Glukoza + Galaktoza).<br>Występuje <span class="bond-highlight">wiązanie O-glikozydowe</span>.</td>
+            </tr>
+            <tr>
+                <td><strong>Polisacharydy</strong><br>(Wielocukry)</td>
+                <td>Długie łańcuchy polimerowe. Zazwyczaj nierozpuszczalne w wodzie (skrobia).</td>
+                <td>Skrobia, Glikogen, Celuloza.<br>Setki/tysiące wiązań glikozydowych.</td>
+            </tr>
+        </table>
+
+        <div class="definition-box">
+            <strong>Wiązanie O-glikozydowe (–O–)</strong><br>
+            Powstaje w wyniku reakcji półacetalowej grupy hydroksylowej jednego cukru z grupą hydroksylową drugiego cukru. Jest to typ wiązania eterowego.
         </div>
     </div>
 
-    <h2>2. Pytania Egzaminacyjne i Biologia</h2>
-    <section class="qa-section">
-        <details>
-            <summary>Co się dzieje z mlekiem podczas fermentacji? (Równanie)</summary>
-            <p>Bakterie kwasu mlekowego rozkładają laktozę do kwasu mlekowego. Powoduje to <strong>zakwaszenie środowiska (spadek pH)</strong> i ścinanie się białka (koagulację kazeiny).<br><br>
-            <strong>Równanie reakcji:</strong> C<sub>12</sub>H<sub>22</sub>O<sub>11</sub> + H<sub>2</sub>O → 4CH<sub>3</sub>CH(OH)COOH</p>
-        </details>
-
-        <details>
-            <summary>Czym jest nietolerancja laktozy?</summary>
-            <p>Jest to brak zdolności organizmu do trawienia cukru mlecznego (laktozy) z powodu niedoboru enzymu – <strong>laktazy</strong>. Objawia się wzdęciami i bólami brzucha, ponieważ niestrawiony cukier fermentuje w jelitach.</p>
-        </details>
-
-        <details>
-            <summary>Czy napis "bez laktozy" na maśle/serze ma sens?</summary>
-            <p><strong>Tak.</strong> Mimo że sery żółte i masło to głównie tłuszcz i mają mało laktozy, osoby z silną nietolerancją mogą reagować nawet na śladowe ilości. Produkty "bez laktozy" mają dodany enzym laktazę już na etapie produkcji.</p>
-        </details>
-
-        <details>
-            <summary>Woda gazowana a niegazowana - chemia</summary>
-            <p>Woda gazowana jest nasycona dwutlenkiem węgla (CO<sub>2</sub>), który tworzy słaby kwas węglowy. <br>Różnica: Woda gazowana ma <strong>niższe pH (kwaśne)</strong>, co działa bakteriostatycznie, ale może drażnić żołądek.</p>
-        </details>
+    <h2>2. Procesy Chemiczne: Fermentacja Mlekowa</h2>
+    <div class="theory-block">
+        <p>Jest to proces beztlenowego utleniania cukrów, przeprowadzany przez bakterie z rodzaju <em>Lactobacillus</em>. W kontekście mleka, substratem jest laktoza.</p>
         
-        <details>
-            <summary>Dlaczego pijemy 2 litry wody dziennie?</summary>
-            <p>Woda stanowi ok. 60% masy ciała. Jest rozpuszczalnikiem dla substancji odżywczych, usuwa toksyny, reguluje temperaturę ciała i jest niezbędna do przebiegu procesów metabolicznych (hydroliza).</p>
-        </details>
-    </section>
+        <h3>Szczegółowy przebieg reakcji:</h3>
+        <ul class="chem-list">
+            <li><strong>Etap 1 (Hydroliza):</strong> Laktoza pod wpływem wody i enzymów bakteryjnych rozpada się na cukry proste.<br>
+            <span class="chem-formula">C<sub>12</sub>H<sub>22</sub>O<sub>11</sub> + H<sub>2</sub>O → C<sub>6</sub>H<sub>12</sub>O<sub>6</sub> (glukoza) + C<sub>6</sub>H<sub>12</sub>O<sub>6</sub> (galaktoza)</span></li>
+            
+            <li><strong>Etap 2 (Właściwa fermentacja):</strong> Cukry proste są przekształcane w kwas mlekowy.<br>
+            <span class="chem-formula">C<sub>6</sub>H<sub>12</sub>O<sub>6</sub> → 2 CH<sub>3</sub>–CH(OH)–COOH</span></li>
+        </ul>
+        
+        <p><strong>Efekt makroskopowy:</strong> Powstający kwas mlekowy (hydroksykwas) obniża pH mleka. Kwaśne środowisko powoduje zniszczenie struktur trzeciorzędowych kazeiny (denaturację), co obserwujemy jako gęstnienie mleka (powstanie jogurtu).</p>
+    </div>
+
+    <h2>3. Chemia Wody: Gazowana vs Niegazowana</h2>
+    <div class="theory-block">
+        <p>Z punktu widzenia chemii analitycznej, woda gazowana i niegazowana mogą mieć identyczny skład mineralny (ilość jonów Mg<sup>2+</sup>, Ca<sup>2+</sup>, Na<sup>+</sup>). Różnica leży w obecności nasycenia dwutlenkiem węgla.</p>
+        
+        <h3>Równowaga kwasowęglowa</h3>
+        <p>W wodzie gazowanej zachodzi reakcja syntezy słabego, nietrwałego kwasu węglowego:</p>
+        <div style="text-align: center; margin: 1rem 0;">
+            <span class="chem-formula">CO<sub>2</sub> + H<sub>2</sub>O ⇄ H<sub>2</sub>CO<sub>3</sub></span>
+        </div>
+        
+        <h3>Konsekwencje chemiczne:</h3>
+        <ul>
+            <li><strong>pH (Odczyn):</strong> Woda gazowana ma odczyn kwasowy (pH < 7) przez obecność jonów H<sup>+</sup> z dysocjacji kwasu węglowego. Woda niegazowana ma zazwyczaj pH obojętne (~7) lub lekko zasadowe.</li>
+            <li><strong>Stabilność bakteriologiczna:</strong> Kwasowe środowisko i obecność CO<sub>2</sub> hamują rozwój bakterii (działanie bakteriostatyczne), dlatego woda gazowana dłużej zachowuje świeżość po otwarciu.</li>
+        </ul>
+    </div>
 
 </div>
 
@@ -233,27 +292,34 @@
     function startFermentation() {
         const liquid = document.getElementById('milkLiquid');
         const label = document.getElementById('liquidLabel');
-        const reactionBox = document.getElementById('reactionDisplay');
-        const desc = document.getElementById('process-desc');
+        const output = document.getElementById('reactionOutput');
+        const btn = document.querySelector('button');
 
-        // 1. Zmiana wizualna (Mleko -> Jogurt)
-        liquid.style.backgroundColor = '#fef9c3'; // Lekko żółtawy/kremowy kolor
-        liquid.style.height = '90%'; // Pęcznieje/gęstnieje
-        label.innerText = "JOGURT (Kwas mlekowy)";
-        label.style.color = "#d97706";
+        // Animacja
+        liquid.style.backgroundColor = '#fef08a'; // Kolor serwatkowy/żółtawy
+        liquid.style.height = '90%'; // Wzrost objętości / gęstnienie
+        label.innerText = "JOGURT (Kwas)";
+        label.style.color = "#b45309";
+        
+        // Wyłączenie przycisku
+        btn.innerText = "Proces zakończony";
+        btn.disabled = true;
+        btn.style.backgroundColor = "#94a3b8";
 
-        // 2. Wyświetlenie chemii
-        reactionBox.style.display = 'block';
-        reactionBox.innerHTML = `
-            <div><strong>PROCES FERMENTACJI:</strong></div>
-            <div>C<sub>12</sub>H<sub>22</sub>O<sub>11</sub> (Laktoza) + H<sub>2</sub>O</div>
-            <div style="text-align:center">↓ <em>bakterie</em></div>
-            <div>4 CH<sub>3</sub>CH(OH)COOH (Kwas mlekowy)</div>
-            <div style="margin-top:10px; font-size: 0.8em; color: #94a3b8;">Odczyn pH spada ↓ (Kwasowy)</div>
+        // Wyświetlenie chemii
+        output.style.display = 'block';
+        output.innerHTML = `
+            <div style="margin-bottom: 10px; color: #fff;">ANALIZA REAKCJI:</div>
+            <div>1. Substrat: <span style="color: #60a5fa;">Laktoza (C<sub>12</sub>H<sub>22</sub>O<sub>11</sub>)</span></div>
+            <div>2. Czynnik: <span style="color: #f472b6;">Bakterie kwasu mlekowego</span></div>
+            <div>3. Reakcja hydrolizy i fermentacji...</div>
+            <div style="margin: 10px 0; border-top: 1px dashed #666; padding-top:10px;">
+                RÓWNANIE SUMARYCZNE:<br>
+                <span style="font-size: 1.2em; font-weight:bold;">C<sub>12</sub>H<sub>22</sub>O<sub>11</sub> + H<sub>2</sub>O &rarr; 4 CH<sub>3</sub>CH(OH)COOH</span>
+            </div>
+            <div>4. Produkt: <span style="color: #a3e635;">Kwas Mlekowy</span></div>
+            <div>5. Skutek: Spadek pH &rarr; Koagulacja białek (Kazeiny)</div>
         `;
-
-        // 3. Opis
-        desc.innerText = "Sukces! Bakterie przekształciły cukier w kwas. Białko (kazeina) uległo koagulacji pod wpływem kwasu.";
     }
 </script>
 
